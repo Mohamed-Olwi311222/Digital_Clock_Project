@@ -6,3 +6,5 @@
 *.hex
 *.o
 *.elf
+#.vscode directory genrated by vscode
+.vscode/
