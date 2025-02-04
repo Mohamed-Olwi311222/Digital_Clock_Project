@@ -241,25 +241,16 @@ typedef enum
  * @port: the port index @ref port_index_t
  * @pin: the pin index @ref pin_index_t
  * @direction: the direction of the pin @ref direction_t
- * @logic: the logic of the pin @ref logic_t
  */
 typedef struct
 {
     uint8 port : 2;             /*@ref use port_index_t */
     uint8 pin  : 3;             /*@ref use pin_index_t  */
     uint8 direction : 1;        /*@ref use direction_t  */
-    uint8 logic : 1;            /*@ref use logic_t      */
-    uint8 RESERVERD : 1;         /* reserved bit */
+    uint8 RESERVED : 2;         /* reserved bits */
 }pin_config_t;
 
 /*----------------------------Function Prototypes-----------------------------*/
-
-/**
- * @brief initialize the given pin of the given config
- * @param _pin_config_t the configration given (i.e led, motor, etc..)
- * @return E_OK if success otherwise E_NOT_OK
- */
-Std_ReturnType gpio_pin_initialize(const pin_config_t *_pin_config_t);
 
 /**
  * @brief initialize the direction of a given pin
@@ -275,11 +266,11 @@ Std_ReturnType gpio_pin_direction_initialize(const pin_config_t *_pin_config_t);
  */
 Std_ReturnType gpio_pin_write_logic(const pin_config_t *_pin_config_t, logic_t logic);
 /**
- * @brief read the logic on the pins of the port
- * @param port the port index given @ref port_index_t
+ * @brief read the logic of a pin
+ * @param _pin_config_t the pin configration given 
  * @param logic the address to store the read logic
  * @return E_OK if success otherwise E_NOT_OK
  */
-Std_ReturnType gpio_port_read_logic(const port_index_t port, uint8 *logic);
+Std_ReturnType gpio_pin_read_logic(const pin_config_t *const _pin_config_t, uint8 *const logic);
 
 #endif /* mcal_gpio.h */
