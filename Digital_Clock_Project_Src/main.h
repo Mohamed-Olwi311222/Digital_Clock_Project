@@ -1,15 +1,14 @@
 /* 
- * File:   application.h
+ * File:   main.h
  * Author: Mohamed olwi
  *
- * Created on 03 October 2024, 05:25
+ * Created: 2/2/2025 8:15:36 AM
  */
 #ifndef APPLICATION_H
 #define	APPLICATION_H
 /*----------------------------Header Files------------------------------------*/
 #define __AVR_ATmega328P__                                                      /* MCU for the include dir*/
 #define F_CPU		                                         16000000UL		    /* MCU Clock */
-#include <avr/io.h>
-#include <util/delay.h>
+#include "std_types.h"
 /*----------------------------Data Types--------------------------------------*/
 #endif	/* APPLICATION_H */
