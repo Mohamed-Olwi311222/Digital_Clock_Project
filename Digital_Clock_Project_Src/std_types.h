@@ -9,6 +9,7 @@
 /*----------------------------Header Files------------------------------------*/
 #include <avr/io.h>
 #include <util/delay.h>
+#include <stdio.h>
 /*----------------------------DataTypes---------------------------------------*/
 typedef unsigned char uint8;
 typedef unsigned short uint16;
