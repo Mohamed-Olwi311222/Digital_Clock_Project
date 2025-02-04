@@ -7,9 +7,10 @@ BAUD = 115200
 # Directories
 SRC_DIR = src
 MCAL_DIR = MCAL
-
+GPIO = $(MCAL_DIR)/GPIO/mcal_gpio.c
+USART = $(MCAL_DIR)/USART/mcal_usart.c
 # Source files (Add all C files from different directories)
-SRC = main.c $(MCAL_DIR)/GPIO/mcal_gpio.c
+SRC = main.c $(GPIO) $(USART)
 
 # Object files
 OBJ = $(SRC:.c=.o)
