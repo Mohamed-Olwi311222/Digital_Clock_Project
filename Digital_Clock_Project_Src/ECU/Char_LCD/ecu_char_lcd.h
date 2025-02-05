@@ -47,19 +47,6 @@ typedef struct
     pin_config_t lcd_en;
     pin_config_t lcd_data[4];
 } char_lcd_4bit_t;
-
-/**
- * struct char_lcd_8bit_t - struct for character lcd with 8 bit config
- * @lcd_rs: the register select pin config @ref pin_config_t
- * @lcd_en: the enable pin config @ref pin_config_t
- * @lcd_data: the 8 data lines of the lcd with 8 bit config @ref pin_config_t
-*/
-typedef struct 
-{
-    pin_config_t lcd_rs;
-    pin_config_t lcd_en;
-    pin_config_t lcd_data[8];
-} char_lcd_8bit_t;
 /*----------------------------Function Prototypes-----------------------------*/
 
 /**
