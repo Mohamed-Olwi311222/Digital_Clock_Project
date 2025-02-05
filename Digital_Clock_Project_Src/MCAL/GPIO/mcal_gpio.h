@@ -12,11 +12,13 @@
 /*---------------------------Macros Declarations-------------------------------*/
 #define BIT_MASK                     (uint8)1
 /*--------------------------Macro Functions-----------------------------------*/
+/**
+ * @brief set, clear, toggle, read a bit in a register
+ */
 #define CLEAR_BIT(_REG, BIT_POS)     (_REG &= ~(BIT_MASK << BIT_POS))
 #define SET_BIT(_REG, BIT_POS)       (_REG |= (BIT_MASK << BIT_POS))
 #define TOGGLE_BIT(_REG, BIT_POS)    (_REG ^= (BIT_MASK << BIT_POS))
 #define READ_BIT(_REG, BIT_POS)      ((_REG & (BIT_MASK << BIT_POS)) >> BIT_POS)
-#define _REG8(_REG)                  (*(volatile uint8 *)(_REG))
 /*--------------------------DataTypes-----------------------------------------*/
 
 /**
