@@ -6,6 +6,9 @@
  */
 #ifndef MCAL_STD_TYPES_H
 #define	MCAL_STD_TYPES_H
+/*----------------------------Macros Declarations-----------------------------*/
+#define __AVR_ATmega328P__                                                      /* MCU for the include dir*/
+#define F_CPU		                                         16000000UL		    /* MCU Clock */
 /*----------------------------Header Files------------------------------------*/
 #include <avr/io.h>
 #include <util/delay.h>
