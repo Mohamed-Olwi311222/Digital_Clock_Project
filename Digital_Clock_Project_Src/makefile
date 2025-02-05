@@ -7,10 +7,12 @@ BAUD = 115200
 # Directories
 SRC_DIR = src
 MCAL_DIR = MCAL
+ECU_DIR = ECU
 GPIO = $(MCAL_DIR)/GPIO/mcal_gpio.c
 USART = $(MCAL_DIR)/USART/mcal_usart.c
+CHAR_LCD = $(ECU_DIR)/Char_LCD/ecu_char_lcd.c
 # Source files (Add all C files from different directories)
-SRC = main.c $(GPIO) $(USART)
+SRC = main.c $(GPIO) $(USART) $(CHAR_LCD)
 
 # Object files
 OBJ = $(SRC:.c=.o)
@@ -20,7 +22,7 @@ ELF = main.elf
 HEX = main.hex
 
 # Compiler flags
-CFLAGS = -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -I$(MCAL_DIR) -I.
+CFLAGS = -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -I$(MCAL_DIR) -I$(ECU_DIR) -I$(SRC_DIR) -I.
 
 # Build HEX file from ELF
 all: $(HEX)
