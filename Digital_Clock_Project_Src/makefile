@@ -10,9 +10,15 @@ MCAL_DIR = MCAL
 ECU_DIR = ECU
 GPIO = $(MCAL_DIR)/GPIO/mcal_gpio.c
 USART = $(MCAL_DIR)/USART/mcal_usart.c
+I2C = $(MCAL_DIR)/I2C/mcal_i2c.c
 CHAR_LCD = $(ECU_DIR)/Char_LCD/ecu_char_lcd.c
+RTC_DS1307 = $(ECU_DIR)/RTC_DS1307/ecu_rtc.c
+#MCAL Modules
+MCAL_MODULES = $(GPIO) $(USART) $(I2C)
+#ECU modules
+ECU_MODULES = $(CHAR_LCD) $(RTC_DS1307)
 # Source files (Add all C files from different directories)
-SRC = main.c $(GPIO) $(USART) $(CHAR_LCD)
+SRC = main.c $(MCAL_MODULES) $(ECU_MODULES)
 
 # Object files
 OBJ = $(SRC:.c=.o)
