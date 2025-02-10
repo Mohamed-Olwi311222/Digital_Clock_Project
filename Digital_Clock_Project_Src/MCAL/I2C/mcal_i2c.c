@@ -6,20 +6,7 @@
  */
 
 #include "mcal_i2c.h"
-#include "../USART/mcal_usart.h"
 /*---------------Static Data types----------------------------------------------*/
-usart_t usart_obj = {
-		.usart_baudrate = 9600,
-		.usart_parity = USART_PARITY_DISABLED,
-		.usart_mode = ASYNC_USART,
-		.usart_char_size = USART_8_BIT_CHAR_SIZE,
-		.usart_receiver_enable = _USART_RECEIVER_DISABLE,
-		.usart_receiver_clk_polarity = _USART_RECEIVE_POLARITY_FALLING_EDGE,
-		.usart_transmitter_enable = _USART_TRANSMITTER_ENABLE,
-		.usart_transmitter_clk_polarity = _USART_TRANSMIT_POLARITY_RISING_EDGE,
-		.usart_transmiter_stop_bits_number = _USART_TRANSMITTER_STOP_BITS_1_BIT,
-		.usart_transmitter_transmission_speed = _USART_TRANSMIT_NORMAL_SPEED_MODE
-	};
 volatile uint8 I2C_STATUS_CODE;
 /*---------------Static Data types End------------------------------------------*/
 /*---------------Static Helper functions declerations---------------------------*/
@@ -86,51 +73,16 @@ Std_ReturnType i2c_master_read_data(const uint8 slave_addr, const uint8 reg, uin
     return (ret_val);
 }
 /**
- * @brief: Write data to transmit it using I2C to RTC DS1307
- * @param slave_addr the slave address
- * @param reg the reg to write to it in the RTC DS1307
- * @param data the 8-bit data to transmit
- * @return E_OK if success otherwise E_NOT_OK
- */
-Std_ReturnType inline i2c_master_write_data(const uint8 slave_addr, const uint8 reg,const uint8 data)
-{
-    Std_ReturnType ret_val = E_OK;
-    uint8 slave_with_ack = (uint8)((slave_addr << 1) | I2C_WRITE_MODE);
-
-    /* Send start condition */
-    ret_val = i2c_master_send_start_cond();
-    if (E_OK == ret_val)
-    {
-        /* Write the slave address */
-        ret_val = i2c_send_byte(slave_with_ack, I2C_SLAVE_ADDRESS_AND_WRITE_ACK);
-        if (E_OK == ret_val)
-        {
-            /* Send the reg to write to it */
-            ret_val = i2c_send_byte(reg, I2C_DATA_TRANSMITTED_ACK);
-            if (E_OK == ret_val)
-            {
-                ret_val = i2c_master_send_start_cond();
-                ret_val = i2c_send_byte(data, I2C_DATA_TRANSMITTED_NACK);
-            }
-        }
-    }
-    /* end comms */
-    i2c_master_send_stop_cond();
-    return ret_val;
-}
-/**
  * @brief: Send Buffer using I2C to RTC DS1307
  * @param slave_addr the slave address
  * @param reg the reg to write to it in the RTC DS1307
- * @param buffer the buffer to send
- * @param buffer_len the buffer length
+ * @param data the data to send
  * @return E_OK if success otherwise E_NOT_OK
  */
-Std_ReturnType  i2c_master_write_buffer(const uint8 slave_addr, const uint8 reg, uint8 *const buffer, const uint8 buffer_len)
+Std_ReturnType i2c_master_write_buffer(const uint8 slave_addr, const uint8 reg, const uint8 data)
 {
     Std_ReturnType ret_val = E_OK;
     uint8 slave_with_ack = (uint8)((slave_addr << 1) | I2C_WRITE_MODE);
-    uint8 i = ZERO_INIT;
 
     /* Send start condition */
     ret_val = i2c_master_send_start_cond();
@@ -144,16 +96,8 @@ Std_ReturnType  i2c_master_write_buffer(const uint8 slave_addr, const uint8 reg,
             ret_val = i2c_send_byte(reg, I2C_DATA_TRANSMITTED_ACK);
             if (E_OK == ret_val)
             {
-                /* Send buffer to the RTC */
-                for (; i < buffer_len; i++)
-                {
-                    ret_val = i2c_send_byte(buffer[i], I2C_DATA_TRANSMITTED_ACK);
-                    _delay_us(1000);
-                    if (E_NOT_OK == ret_val)
-                    {
-                        break;
-                    }
-                }
+                ret_val = i2c_send_byte(data, I2C_DATA_TRANSMITTED_ACK);
+                _delay_us(1000);
             }
         }
     }

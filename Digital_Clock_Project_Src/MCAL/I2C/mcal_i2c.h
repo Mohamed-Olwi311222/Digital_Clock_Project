@@ -230,15 +230,6 @@ typedef enum
  * @param i2c_freq the I2C module freq
  */
 void i2c_init(const uint8 i2c_freq);
-
-/**
- * @brief: Write data to transmit it using I2C to RTC DS1307
- * @param slave_addr the slave address
- * @param reg the reg to write to it in the RTC DS1307
- * @param data the 8-bit data array to transmit
- * @return E_OK if success otherwise E_NOT_OK
- */
-Std_ReturnType inline i2c_master_write_data(const uint8 slave_addr, const uint8 reg,const uint8 data);
 /**
  * @brief: Read data from RTC DS1307 using I2C
  * @param slave_addr the slave address
@@ -251,10 +242,9 @@ Std_ReturnType i2c_master_read_data(const uint8 slave_addr, const uint8 reg, uin
  * @brief: Send Buffer using I2C to RTC DS1307
  * @param slave_addr the slave address
  * @param reg the reg to write to it in the RTC DS1307
- * @param buffer the buffer to send
- * @param buffer_len the buffer length
+ * @param data the data to send
  * @return E_OK if success otherwise E_NOT_OK
  */
-Std_ReturnType i2c_master_write_buffer(const uint8 slave_addr, const uint8 reg, uint8 *const buffer, const uint8 buffer_len);
+Std_ReturnType i2c_master_write_buffer(const uint8 slave_addr, const uint8 reg, const uint8 data);
 
 #endif /* mcal_i2c.h */
