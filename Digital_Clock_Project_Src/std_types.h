@@ -11,6 +11,7 @@
 #define ZERO_INIT		                                     0x00		        /* Initial value of a variable */
 /*----------------------------Header Files------------------------------------*/
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include <util/delay.h>
 #include <stdio.h>
 /*----------------------------DataTypes---------------------------------------*/
