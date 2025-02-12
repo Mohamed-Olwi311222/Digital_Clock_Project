@@ -146,7 +146,7 @@ typedef enum
 /**
  * Set the ADC Analog Channel
  */
-#define ADC_SET_MUX_CONFIG(__ADC_MUX)                        (ADMUX_bits.MUX_bits |= __ADC_MUX)
+#define ADC_SET_MUX_CONFIG(__ADC_MUX)                        (ADMUX_bits.MUX_bits = __ADC_MUX)
 /*----------ADLAR Bits----------*/
 /**
  * Set the ADC Result Left Adjust
@@ -190,37 +190,42 @@ typedef enum
 /**
  * Enable the ADC
  */
-#define ADC_ENABLE_CONFIG()                                 (ADCSRA_bits.ADEN_bit = _ADC_ENABLE)
+#define ADC_ENABLE_CONFIG()                                  (ADCSRA_bits.ADEN_bit = _ADC_ENABLE)
 /**
  * Disable the ADC
  */
-#define ADC_DISABLE_CONFIG()                                (ADCSRA_bits.ADEN_bit = _ADC_DISABLE)
+#define ADC_DISABLE_CONFIG()                                 (ADCSRA_bits.ADEN_bit = _ADC_DISABLE)
 /*==================DIDR0 REG==================*/
 /*----------ADC0D:5D Bits-------*/
 /**
  * Disable Digital input
  */
-#define ADC_DISABLE_DIGITAL_INPUT(__ADC_MUX)                (DIDR0_bits.ADPS_bits = __ADC_MUX)
+#define ADC_DISABLE_DIGITAL_INPUT(__ADC_MUX)                 (DIDR0_bits.ADPS_bits = __ADC_MUX)
  /*----------------------------Function Prototypes-----------------------------*/
 /**
  *  @brief ADC Initialization
  * @param ref the ADC reference selection
  */
-void adc_init(const ADC_REF_t ref);
+void inline adc_init(const ADC_REF_t ref);
 /**
  * @brief: Enalbe the selected channel to work as a analog input
  * @param mux The channel to configure
  */
-void adc_enable_channel(const ADC_MUX_t mux);
+void inline adc_enable_channel(const ADC_MUX_t mux);
 /**
  * @brief: disable the selected channel to work as a digital input
  * @param mux The channel to configure
  */
-void adc_disable_channel(const ADC_MUX_t mux);
+void inline adc_disable_channel(const ADC_MUX_t mux);
+/**
+ * @brief: Select the given channel to listen to it
+ * @param mux The ADC pin to listen to it
+ */
+void inline adc_pin_select(const ADC_MUX_t mux);
 /**
  * @brief ADC Start Conversion and store the readen value
  * @param addr the address to store the value in it
  * @return E_OK if success otherwise E_NOT_OK
  */
-Std_ReturnType inline adc_start_conversion(uint16 *const addr);
+Std_ReturnType inline adc_convert(uint16 *const addr);
  #endif	/* mcal_adc.h */
