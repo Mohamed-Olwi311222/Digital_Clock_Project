@@ -38,5 +38,13 @@ typedef uint8 Std_ReturnType;
 #define E_OK            (Std_ReturnType)0x00u
 #define E_NOT_OK        (Std_ReturnType)0x01u
 #endif
-
+#define BIT_MASK                     (uint8)1
+/*--------------------------Macro Functions-----------------------------------*/
+/**
+ * @brief set, clear, toggle, read a bit in a register
+ */
+#define CLEAR_BIT(_REG, BIT_POS)     (_REG &= ~(BIT_MASK << BIT_POS))
+#define SET_BIT(_REG, BIT_POS)       (_REG |= (BIT_MASK << BIT_POS))
+#define TOGGLE_BIT(_REG, BIT_POS)    (_REG ^= (BIT_MASK << BIT_POS))
+#define READ_BIT(_REG, BIT_POS)      ((_REG & (BIT_MASK << BIT_POS)) >> BIT_POS)
 #endif	/* MCAL_STD_TYPES_H */
