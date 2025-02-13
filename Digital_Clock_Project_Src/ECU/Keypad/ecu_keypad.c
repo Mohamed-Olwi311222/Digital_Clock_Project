@@ -5,19 +5,6 @@
  * Created: 13/2/2025 7:25:00 AM
  */
 #include "ecu_keypad.h"
-#include "../../MCAL/USART/mcal_usart.h"
-usart_t usart_obj = {
-    .usart_baudrate = 9600,
-    .usart_parity = USART_PARITY_DISABLED,
-    .usart_mode = ASYNC_USART,
-    .usart_char_size = USART_8_BIT_CHAR_SIZE,
-    .usart_receiver_enable = _USART_RECEIVER_DISABLE,
-    .usart_receiver_clk_polarity = _USART_RECEIVE_POLARITY_FALLING_EDGE,
-    .usart_transmitter_enable = _USART_TRANSMITTER_ENABLE,
-    .usart_transmitter_clk_polarity = _USART_TRANSMIT_POLARITY_RISING_EDGE,
-    .usart_transmiter_stop_bits_number = _USART_TRANSMITTER_STOP_BITS_1_BIT,
-    .usart_transmitter_transmission_speed = _USART_TRANSMIT_NORMAL_SPEED_MODE
-};
 static uint16 keypad_dig_value[KEYPAD_LEN] = {931, 913, 895, 878,
                                               853, 838, 823, 809,
                                               788, 775, 762, 750,
