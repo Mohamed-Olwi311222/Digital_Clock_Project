@@ -12,8 +12,9 @@ GPIO = $(MCAL_DIR)/GPIO/mcal_gpio.c
 USART = $(MCAL_DIR)/USART/mcal_usart.c
 I2C = $(MCAL_DIR)/I2C/mcal_i2c.c
 ADC = $(MCAL_DIR)/ADC/mcal_adc.c
+EEPROM = $(MCAL_DIR)/EEPROM/mcal_eeprom.c
 #MCAL Modules
-MCAL_MODULES = $(GPIO) $(USART) $(I2C) $(ADC)
+MCAL_MODULES = $(GPIO) $(USART) $(I2C) $(ADC) $(EEPROM)
 #ECU Layer Module
 ECU_DIR = ECU
 CHAR_LCD = $(ECU_DIR)/Char_LCD/ecu_char_lcd.c
