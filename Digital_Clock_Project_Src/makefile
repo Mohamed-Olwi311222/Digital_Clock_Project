@@ -6,18 +6,21 @@ BAUD = 115200
 
 # Directories
 SRC_DIR = src
+#MCAL Layer Module
 MCAL_DIR = MCAL
-ECU_DIR = ECU
 GPIO = $(MCAL_DIR)/GPIO/mcal_gpio.c
 USART = $(MCAL_DIR)/USART/mcal_usart.c
 I2C = $(MCAL_DIR)/I2C/mcal_i2c.c
 ADC = $(MCAL_DIR)/ADC/mcal_adc.c
-CHAR_LCD = $(ECU_DIR)/Char_LCD/ecu_char_lcd.c
-RTC_DS1307 = $(ECU_DIR)/RTC_DS1307/ecu_rtc.c
 #MCAL Modules
 MCAL_MODULES = $(GPIO) $(USART) $(I2C) $(ADC)
+#ECU Layer Module
+ECU_DIR = ECU
+CHAR_LCD = $(ECU_DIR)/Char_LCD/ecu_char_lcd.c
+RTC_DS1307 = $(ECU_DIR)/RTC_DS1307/ecu_rtc.c
+KEYPAD = $(ECU_DIR)/KEYPAD/ecu_keypad.c
 #ECU modules
-ECU_MODULES = $(CHAR_LCD) $(RTC_DS1307)
+ECU_MODULES = $(CHAR_LCD) $(RTC_DS1307) $(KEYPAD)
 # Source files (Add all C files from different directories)
 SRC = main.c $(MCAL_MODULES) $(ECU_MODULES)
 
