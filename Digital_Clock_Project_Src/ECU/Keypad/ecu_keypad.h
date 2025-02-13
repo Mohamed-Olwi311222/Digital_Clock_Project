@@ -4,8 +4,8 @@
  *
  * Created: 13/2/2025 7:25:00 AM
  */
-#ifndef RTC_H
-#define	RTC_H
+#ifndef KEYPAD_H
+#define	KEYPAD_H
 /*----------------------------Header Files------------------------------------*/
 #include "../../std_types.h"
 #include "../../MCAL/ADC/mcal_adc.h"
@@ -25,4 +25,4 @@ void inline keypad_init(ADC_MUX_t adc_channel);
  * @return E_OK if status success otherwise E_NOT_OK
  */
 Std_ReturnType keypad_read(uint8 *const addr);
-#endif	/* ecu_rtc.h */
+#endif	/* ecu_keypad.h */
