@@ -88,7 +88,7 @@ typedef union
     };
     uint8 UCSR0A_register;
 } UCSR0A_BITS_t;
-extern volatile UCSR0A_BITS_t UCSR0A_bits __asm__("0xC0"); /* UCSR0A register */
+#define UCSR0A_bits (*((volatile UCSR0A_BITS_t *)0xC0)) /* UCSR0A regiter bits */
 
 /**
  * @brief: UCSR0B register bits
@@ -108,7 +108,7 @@ typedef union
     };
     uint8 UCSR0B_register;
 } UCSR0B_BITS_t;
-extern volatile UCSR0B_BITS_t UCSR0B_bits __asm__("0xC1"); 
+#define UCSR0B_bits (*((volatile UCSR0B_BITS_t *)0xC1)) /* UCSR0B regiter bits */
 
 /**
  * @brief: UCSR0C register bits
@@ -134,7 +134,7 @@ typedef union
     };
     uint8 UCSR0C_register;
 } UCSR0C_BITS_t;
-extern volatile UCSR0C_BITS_t UCSR0C_bits __asm__("0xC2"); 
+#define UCSR0C_bits (*((volatile UCSR0C_BITS_t *)0xC2)) /* UCSR0C regiter bits */
 
 /**
  * @brief: An enum for selecting the USART parity

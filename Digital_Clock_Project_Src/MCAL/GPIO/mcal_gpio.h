@@ -29,7 +29,8 @@ typedef union
     };
     uint8 DDRB_register;
 }DDRB_BITS_t;
-extern volatile DDRB_BITS_t DDRB_bits __asm__("0x0024");    /* DDRB register */
+#define DDRB_bits (*((volatile DDRB_BITS_t *)0x24)) /* DDRB regiter bits */
+
 /**
  * @brief PORTB register bits
  */
@@ -48,7 +49,7 @@ typedef union
     };
     uint8 PORTB_register;
 }PORTB_BITS_t;
-extern volatile PORTB_BITS_t PORTB_bits __asm__("0x0025");    /* PORTB register */
+#define PORTB_bits (*((volatile PORTB_BITS_t *)0x25)) /* PORTB regiter bits */
 /**
  * @brief PINB register bits
  */
@@ -67,7 +68,7 @@ typedef union
     };
     uint8 PINB_register;
 }PINB_BITS_t;
-extern volatile PINB_BITS_t PINB_bits __asm__("0x0023");    /* PINB register */
+#define PINB_bits (*((volatile PINB_BITS_t *)0x23)) /* PINB regiter bits */
 
 /**
  * @brief DDRC register bits
@@ -87,7 +88,8 @@ typedef union
     };
     uint8 DDRC_register;
 }DDRC_BITS_t;
-extern volatile DDRC_BITS_t DDRC_bits __asm__("0x0027");    /* DDRC register */
+#define DDRC_bits (*((volatile DDRC_BITS_t *)0x27)) /* DDRC regiter bits */
+
 /**
  * @brief PORTC register bits
  */
@@ -106,7 +108,8 @@ typedef union
     };
     uint8 PORTC_register;
 }PORTC_BITS_t;
-extern volatile PORTC_BITS_t PORTC_bits __asm__("0x0028");    /* PORTC register */
+#define PORTC_bits (*((volatile PORTC_BITS_t *)0x28)) /* PORTC regiter bits */
+
 /**
  * @brief PINC register bits
  */
@@ -125,7 +128,7 @@ typedef union
     };
     uint8 PINC_register;
 }PINC_BITS_t;
-extern volatile PINC_BITS_t PINC_bits __asm__("0x0026");    /* PINC register */
+#define PINC_bits (*((volatile PINC_BITS_t *)0x26)) /* PINC regiter bits */
 
 /**
  * @brief DDRD register bits
@@ -145,7 +148,8 @@ typedef union
     };
     uint8 DDRD_register;
 }DDRD_BITS_t;
-extern volatile DDRD_BITS_t DDRD_bits __asm__("0x002A");    /* DDRD register */
+#define DDRD_bits (*((volatile DDRD_BITS_t *)0x2A)) /* DDRD regiter bits */
+
 /**
  * @brief PORTD register bits
  */
@@ -164,7 +168,8 @@ typedef union
     };
     uint8 PORTD_register;
 }PORTD_BITS_t;
-extern volatile PORTD_BITS_t PORTD_bits __asm__("0x002B");    /* PORTD register */
+#define PORTD_bits (*((volatile PORTD_BITS_t *)0x2B)) /* PORTD regiter bits */
+
 /**
  * @brief PIND register bits
  */
@@ -183,7 +188,7 @@ typedef union
     };
     uint8 PIND_register;
 }PIND_BITS_t;
-extern volatile PIND_BITS_t PIND_bits __asm__("0x0029");    /* PIND register */
+#define PIND_bits (*((volatile PIND_BITS_t *)0x29)) /* PIND regiter bits */
 
 /**
  * @brief logic levels 1(HIGH) and 0(LOW)

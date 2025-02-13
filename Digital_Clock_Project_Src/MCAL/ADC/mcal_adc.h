@@ -51,7 +51,7 @@ typedef union
     };
     uint8 ADMUX_register;
 }ADMUX_BITS_t;
-extern volatile ADMUX_BITS_t ADMUX_bits __asm__("0x7C"); 
+#define ADMUX_bits (*((volatile ADMUX_BITS_t *)0x7C)) /* ADMUX regiter bits */
 
 /**
  * @brief ADCSRA Register
@@ -76,7 +76,7 @@ typedef union
     };
     uint8 ADCSRA_register;
 }ADCSRA_BITS_t;
-extern volatile ADCSRA_BITS_t ADCSRA_bits __asm__("0x7A");
+#define ADCSRA_bits (*((volatile ADCSRA_BITS_t *)0x7A)) /* ADCSRA regiter bits */
 
 /**
  * @brief DIDR0 register
@@ -100,8 +100,7 @@ typedef union
     };
     uint8 DIDR0_register;
 }DIDR0_BITS_t;
-extern volatile DIDR0_BITS_t DIDR0_bits __asm__("0x7E");
-
+#define DIDR0_bits (*((volatile DIDR0_BITS_t *)0x7E)) /* DIDR0 regiter bits */
 /**
  * @brief ADC mux selection
  */

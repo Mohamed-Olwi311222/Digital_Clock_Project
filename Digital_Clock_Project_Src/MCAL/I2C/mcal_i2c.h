@@ -54,7 +54,7 @@ typedef union
     };
     uint8 TWBR_register;
 } TWBR_BITS_t;
-extern volatile TWBR_BITS_t TWBR_bits __asm__("0xB8");  /* TWBR register */
+#define TWBR_bits (*((volatile TWBR_BITS_t *)0xB8)) /* TWBR regiter bits */
 
 /**
  * @brief: TWCR register bits
@@ -74,7 +74,7 @@ typedef union
     };
     uint8 TWCR_register;
 }TWCR_BITS_t;
-extern volatile TWCR_BITS_t TWCR_bits __asm__("0xBC");  /* TWCR register */
+#define TWCR_bits (*((volatile TWCR_BITS_t *)0xBC)) /* TWCR regiter bits */
 
 /**
  * @brief: TWSR register bits
@@ -100,7 +100,7 @@ typedef union
     };
     uint8 TWSR_register;
 }TWSR_BITS_t;
-extern volatile TWSR_BITS_t TWSR_bits __asm__("0xB9");  /* TWSR register */
+#define TWSR_bits (*((volatile TWSR_BITS_t *)0xB9)) /* TWSR regiter bits */
 
 /**
  * @brief: I2C prescaler
