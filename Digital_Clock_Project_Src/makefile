@@ -1,7 +1,7 @@
 MCU = atmega328p
 F_CPU = 16000000UL
 PROGRAMMER = arduino
-PORT = COM10
+PORT = COM8
 BAUD = 115200
 
 # Directories
@@ -13,15 +13,17 @@ USART = $(MCAL_DIR)/USART/mcal_usart.c
 I2C = $(MCAL_DIR)/I2C/mcal_i2c.c
 ADC = $(MCAL_DIR)/ADC/mcal_adc.c
 EEPROM = $(MCAL_DIR)/EEPROM/mcal_eeprom.c
+TIMER0 = $(MCAL_DIR)/TIMER0/mcal_timer0.c
 #MCAL Modules
-MCAL_MODULES = $(GPIO) $(USART) $(I2C) $(ADC) $(EEPROM)
+MCAL_MODULES = $(GPIO) $(USART) $(I2C) $(ADC) $(EEPROM) $(TIMER0)
 #ECU Layer Module
 ECU_DIR = ECU
 CHAR_LCD = $(ECU_DIR)/Char_LCD/ecu_char_lcd.c
 RTC_DS1307 = $(ECU_DIR)/RTC_DS1307/ecu_rtc.c
 KEYPAD = $(ECU_DIR)/KEYPAD/ecu_keypad.c
+ERM_MOTOR = $(ECU_DIR)/ERM_Motor/ecu_erm_motor.c
 #ECU modules
-ECU_MODULES = $(CHAR_LCD) $(RTC_DS1307) $(KEYPAD)
+ECU_MODULES = $(CHAR_LCD) $(RTC_DS1307) $(KEYPAD) $(ERM_MOTOR)
 # Source files (Add all C files from different directories)
 SRC = main.c $(MCAL_MODULES) $(ECU_MODULES)
 
