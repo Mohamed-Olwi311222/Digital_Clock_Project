@@ -61,3 +61,48 @@ void rtc_read_time(uint8 *hours, uint8 *minutes, uint8 *seconds, uint8 *days, ui
     _delay_us(1000);
     i2c_master_read_data(RTC_ADDR, RTC_YEARS_REG, years);
 }
+/**
+ * @brief: Write the time in EEPROM
+ * @param start_addr The starting address of the EEPROM
+ * @param time The time to store
+ * @param time_len The length of time array (must be 6)
+ * @note time array must be of length 6 (hours, minutes, seconds, days, months, years)
+ * @return E_OK if success otherwise E_NOT_OK
+ */
+Std_ReturnType rtc_store_time(const uint16 start_addr ,const uint8 *const time, const uint8 time_len)
+{
+    Std_ReturnType ret_val = E_OK;
+
+    if (NULL == time || 6 != time_len)
+    {
+        ret_val = E_NOT_OK;
+    }
+    else
+    {
+        ret_val = eeprom_write_buffer(start_addr, time, time_len);
+    }
+    return (ret_val);
+}
+
+/**
+ * @brief: Read the time from the EEPROM
+ * @param start_addr The starting address of the EEPROM
+ * @param buffer The buffer to store the readen value
+ * @param buffer_len The length of buffer array (must be 6)
+ * @note buffer array must be of length 6 (hours, minutes, seconds, days, months, years)
+ * @return E_OK if success otherwise E_NOT_OK
+ */
+Std_ReturnType rtc_read_time_eeprom(const uint16 start_addr , uint8 *const buffer, const uint8 buffer_len)
+{
+    Std_ReturnType ret_val = E_OK;
+
+    if (NULL == buffer || 6 != buffer_len)
+    {
+        ret_val = E_NOT_OK;
+    }
+    else
+    {
+        ret_val = eeprom_read_buffer(start_addr, buffer, buffer_len);
+    }
+    return (ret_val);
+}

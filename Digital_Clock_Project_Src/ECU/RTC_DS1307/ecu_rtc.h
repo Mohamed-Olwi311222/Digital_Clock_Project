@@ -9,6 +9,7 @@
 /*----------------------------Header Files------------------------------------*/
 #include "../../std_types.h"
 #include "../../MCAL/I2C/mcal_i2c.h"
+#include "../../MCAL/EEPROM/mcal_eeprom.h"
 /*----------------------------Macros Declarations-----------------------------*/
 #define RTC_ADDR											 (0x68) /* RTC Addr*/
 #define RTC_SECONDS_REG										 (0x00) /* RTC Seconds reg addr */
@@ -42,5 +43,25 @@ void rtc_set_time(uint8 hours, uint8 minutes, uint8 seconds, uint8 days, uint8 m
  * @param years years address to store into the read value
  */
 void rtc_read_time(uint8 *hours, uint8 *minutes, uint8 *seconds, uint8 *days, uint8 *months, uint8 *years);
+
+/**
+ * @brief: Write the time in EEPROM
+ * @param start_addr The starting address of the EEPROM
+ * @param time The time to store
+ * @param time_len The length of time array (must be 6)
+ * @note time array must be of length 6 (hours, minutes, seconds, days, months, years)
+ * @return E_OK if success otherwise E_NOT_OK
+ */
+Std_ReturnType rtc_write_time_eeprom(const uint16 start_addr ,const uint8 *const time, const uint8 time_len);
+
+/**
+ * @brief: Read the time from the EEPROM
+ * @param start_addr The starting address of the EEPROM
+ * @param buffer The buffer to store the readen value
+ * @param buffer_len The length of buffer array (must be 6)
+ * @note buffer array must be of length 6 (hours, minutes, seconds, days, months, years)
+ * @return E_OK if success otherwise E_NOT_OK
+ */
+Std_ReturnType rtc_read_time_eeprom(const uint16 start_addr , uint8 *const buffer, const uint8 buffer_len);
 
 #endif	/* ecu_rtc.h */
