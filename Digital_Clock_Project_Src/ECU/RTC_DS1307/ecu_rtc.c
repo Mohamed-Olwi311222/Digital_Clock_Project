@@ -69,7 +69,7 @@ void rtc_read_time(uint8 *hours, uint8 *minutes, uint8 *seconds, uint8 *days, ui
  * @note time array must be of length 6 (hours, minutes, seconds, days, months, years)
  * @return E_OK if success otherwise E_NOT_OK
  */
-Std_ReturnType rtc_store_time(const uint16 start_addr ,const uint8 *const time, const uint8 time_len)
+Std_ReturnType rtc_write_time_eeprom(const uint16 start_addr ,const uint8 *const time, const uint8 time_len)
 {
     Std_ReturnType ret_val = E_OK;
 
