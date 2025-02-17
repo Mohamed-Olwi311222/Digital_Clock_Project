@@ -5,6 +5,7 @@
  * Created: 10/2/2025 7:49:00 AM
  */
 #include "ecu_rtc.h"
+
 static Std_ReturnType inline rtc_set_day_time(uint8 *const time);
 static Std_ReturnType inline rtc_set_date(uint8 *const date);
 static Std_ReturnType inline rtc_read_day_time(uint8 *const buffer);
