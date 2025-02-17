@@ -12,7 +12,7 @@ volatile uint8 I2C_STATUS_CODE;
 /*---------------Static Helper functions declerations---------------------------*/
 static void inline i2c_set_freq(const uint8 i2c_freq);
 static inline Std_ReturnType i2c_poll_status(const uint8 status);
-static inline Std_ReturnType i2c_master_send_start_cond(void);
+static inline Std_ReturnType i2c_master_send_start(uint8 start_type);
 static inline void i2c_master_send_stop_cond(void);
 static Std_ReturnType i2c_send_byte(const uint8 byte, const uint8 ack);
 static Std_ReturnType i2c_receive_data(const uint8 ack, uint8 *const addr);
@@ -42,7 +42,7 @@ Std_ReturnType i2c_master_read_data(const uint8 slave_addr, const uint8 reg, uin
     uint8 slave_with_ack = (uint8)((slave_addr << 1) | I2C_WRITE_MODE);
 
     /* Send start condition */
-    ret_val = i2c_master_send_start_cond();
+    ret_val = i2c_master_send_start(I2C_START_BIT_TRANSMITTED);
     if (E_OK == ret_val)
     {
         /* Write the slave address */
@@ -53,14 +53,14 @@ Std_ReturnType i2c_master_read_data(const uint8 slave_addr, const uint8 reg, uin
             ret_val = i2c_send_byte(reg, I2C_DATA_TRANSMITTED_ACK);
             if (E_OK == ret_val)
             {
-                ret_val = i2c_master_send_start_cond();
+                ret_val = i2c_master_send_start(I2C_REPEATED_START_BIT_TRANSMITTED);
                 ret_val = i2c_send_byte(slave_with_ack | I2C_READ_MODE, I2C_SLAVE_ADDRESS_AND_READ_ACK);
                 if (E_OK == ret_val)
                 {
                     /* Receive the data from the reg in DS1307 */
                     ret_val = i2c_receive_data(_I2C_NACKNOWLEDGE, addr);
                     _delay_us(1000);
-                    if (E_OK == ret_val)
+                    if (E_NOT_OK == ret_val)
                     {
                         ret_val = E_NOT_OK;
                     }
@@ -85,7 +85,7 @@ Std_ReturnType i2c_master_write_buffer(const uint8 slave_addr, const uint8 reg, 
     uint8 slave_with_ack = (uint8)((slave_addr << 1) | I2C_WRITE_MODE);
 
     /* Send start condition */
-    ret_val = i2c_master_send_start_cond();
+    ret_val = i2c_master_send_start(I2C_START_BIT_TRANSMITTED);
     if (E_OK == ret_val)
     {
         /* Write the slave address */
@@ -106,15 +106,24 @@ Std_ReturnType i2c_master_write_buffer(const uint8 slave_addr, const uint8 reg, 
     return ret_val;
 }
 /**
- * @brief: Send a start condition in I2C master mode
+ * @brief: Send a start condition or repeated start condition in I2C master mode
+ * @param start_type The type of the start condition (repeated start or start condition)
+ * @return E_OK if success otherwise E_NOT_OK
  */
-static inline Std_ReturnType i2c_master_send_start_cond(void)
+static inline Std_ReturnType i2c_master_send_start(uint8 start_type)
 {
     Std_ReturnType ret_val = E_OK;
     TWCR_bits.TWCR_register = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN);
     /* poll until status is received */
-    ret_val = i2c_poll_status(I2C_START_BIT_TRANSMITTED);
-    return (ret_val);
+    if (I2C_START_BIT_TRANSMITTED == start_type)
+    {
+        ret_val = i2c_poll_status(I2C_START_BIT_TRANSMITTED);
+    }
+    else
+    {
+        ret_val = i2c_poll_status(I2C_REPEATED_START_BIT_TRANSMITTED);
+    }
+        return (ret_val);
 }
 /**
  * @brief: Send a stop condition in I2C master mode
@@ -194,13 +203,13 @@ static inline Std_ReturnType i2c_poll_status(const uint8 status)
             break;
         }
     }
-
+    
     /* Wrong status received or timeout happened */
     if (I2C_STATUS_CODE != status)
     {
         ret_val = E_NOT_OK;
     }
-    
+
     I2C_CLEAR_INTERRUPT_FLAG_CONFIG();  // Clear the flag
     return (ret_val);
 }
