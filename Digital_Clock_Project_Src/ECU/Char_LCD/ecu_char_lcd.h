@@ -10,6 +10,7 @@
 /*----------------------------Header Files------------------------------------*/
 #include "../../MCAL/GPIO/mcal_gpio.h"
 #include <string.h>
+#include "../../std_types.h"
 /*----------------------------Macros Declarations-----------------------------*/
 #define _LCD_CLEAR                      0x01
 #define _LCD_RETURN_HOME                0x02
@@ -24,7 +25,7 @@
 #define _LCD_4BIT_MODE_2_LINE           0x28
 #define _LCD_CGRAM_START                0x40
 #define _LCD_DDRAM_START                0x80
-#define BYTE_STR_SIZE   4  // 3 digits + null terminator
+#define BYTE_STR_SIZE   3  // 2 digits + null terminator
 #define SHORT_STR_SIZE  6 // 5 digits + null terminator
 #define INT_STR_SIZE    11  // 10 digits + null terminator
 #define ROW1                            1

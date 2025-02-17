@@ -303,7 +303,7 @@ static Std_ReturnType lcd_4bit_send_enable_signal(const char_lcd_4bit_t *lcd)
 
 Std_ReturnType convert_uint8_to_string(uint8 value, uint8 *str)
 {
-	Std_ReturnType  ret = E_OK; 
+	Std_ReturnType ret = E_OK; 
     uint8 temp_str[BYTE_STR_SIZE] = {0};
     uint8 counter = 0;
     
@@ -314,7 +314,7 @@ Std_ReturnType convert_uint8_to_string(uint8 value, uint8 *str)
 	else
 	{
 		memset(str, ' ', BYTE_STR_SIZE - 1);
-        str[5] = '\0';
+        str[BYTE_STR_SIZE - 1] = '\0';
         /* Store the value given in the temp_str followed by null termination */
 		if (snprintf((char *)temp_str, BYTE_STR_SIZE, "%u", value) < 0)
 		{
