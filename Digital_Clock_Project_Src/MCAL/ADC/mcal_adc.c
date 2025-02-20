@@ -10,6 +10,11 @@ ISR(ADC_vect)
 {
     /* Set the ADC conversion done flag */
     adc_conversion_done = 1;
+    /* If the adc converted value is actually a key press, then delay to debounce*/
+    if (ADC < 950)
+    {
+        _delay_ms(250);
+    }
     /* Clear ADC Interrupt Flag */
     ADC_CLEAR_INTERRUPT_FLAG_CONFIG();
 }
