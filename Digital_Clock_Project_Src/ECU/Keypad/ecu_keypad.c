@@ -35,10 +35,11 @@ Std_ReturnType keypad_read(uint8 *const addr)
     Std_ReturnType ret_val = E_NOT_OK;
     uint16 adc_res = ZERO_INIT;
     uint8 i = ZERO_INIT;
+    uint16 timeout = 1500;
 
     if (NULL != addr)
     {
-        while (1)
+        while (0 != timeout)
         {
             adc_convert(&adc_res);
             /* Restart scanning until a key is found*/
@@ -53,6 +54,7 @@ Std_ReturnType keypad_read(uint8 *const addr)
                 break;
             }
             i++;
+            timeout--;
         }
         ret_val = E_OK;
     }
