@@ -50,7 +50,7 @@ typedef union
     };
     uint8 EIMSK_register;
 }EIMSK_BITS_t;
-#define EIMSK_bits (*((volatile EIMSK_BITS_t *)0x1D)) /* EIMSK regiter bits */
+#define EIMSK_bits (*((volatile EIMSK_BITS_t *)0x3D)) /* EIMSK regiter bits */
 
 /**
  * @brief EIFR register
@@ -65,7 +65,7 @@ typedef union
     };
     uint8 EIFR_register;
 }EIFR_BITS_t;
-#define EIFR_bits (*((volatile EIFR_BITS_t *)0x1C)) /* EIFR regiter bits */
+#define EIFR_bits (*((volatile EIFR_BITS_t *)0x3C)) /* EIFR regiter bits */
 
 /**
  * The types of interrupt sense of INTx
