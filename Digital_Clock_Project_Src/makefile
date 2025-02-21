@@ -14,8 +14,9 @@ I2C = $(MCAL_DIR)/I2C/mcal_i2c.c
 ADC = $(MCAL_DIR)/ADC/mcal_adc.c
 EEPROM = $(MCAL_DIR)/EEPROM/mcal_eeprom.c
 TIMER0 = $(MCAL_DIR)/TIMER0/mcal_timer0.c
+INTX = $(MCAL_DIR)/EXT_INTERRUPTS/mcal_ext_interrupts.c
 #MCAL Modules
-MCAL_MODULES = $(GPIO) $(USART) $(I2C) $(ADC) $(EEPROM) $(TIMER0)
+MCAL_MODULES = $(GPIO) $(USART) $(I2C) $(ADC) $(EEPROM) $(TIMER0) $(INTX)
 #ECU Layer Module
 ECU_DIR = ECU
 CHAR_LCD = $(ECU_DIR)/Char_LCD/ecu_char_lcd.c
