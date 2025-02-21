@@ -18,6 +18,7 @@
 #define RTC_DAYS_REG										 (0x04) /* RTC days reg addr */
 #define RTC_MONTHS_REG										 (0x05) /* RTC months reg addr */
 #define RTC_YEARS_REG										 (0x06) /* RTC years reg addr */
+#define RTC_CONTORL_REG										 (0x07) /* RTC Control reg addr */
 #define RTC_SECONDS_IDX										 (0x00) /* RTC Seconds reg index */
 #define RTC_MINUTES_IDX										 (0x01) /* RTC mintues reg index */
 #define RTC_HOURS_IDX										 (0x02) /* RTC hours reg index */
@@ -29,6 +30,10 @@
  * @brief Initialize the RTC DS1307
  */
 void rtc_init(void);
+/**
+ * @brief Enable square output of SQW/OUT pin
+ */
+void rtc_enable_sqw_output(void);
 /**
  * @brief: Write time to RTC using I2C
  * @param time The time to write to the RTC

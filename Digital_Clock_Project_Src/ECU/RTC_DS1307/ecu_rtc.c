@@ -19,6 +19,13 @@ void rtc_init(void)
 	i2c_init(I2C_STANDARD_MODE_100KHZ);
 }
 /**
+ * @brief Enable square output of SQW/OUT pin
+ */
+void rtc_enable_sqw_output(void)
+{
+    i2c_master_write_buffer(RTC_ADDR, RTC_CONTORL_REG, 0x10);
+}
+/**
  * @brief: Write time to RTC using I2C
  * @param time The time to write to the RTC
  * @param time_len The length of time array (must be 6)
