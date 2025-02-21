@@ -39,6 +39,8 @@ Std_ReturnType inline ext_intx_init(uint8 intx_type, EXT_INTx_SENSE_t interrupt_
     {
         /* Disable INT0 interrupt */
         EXT_INT0_DISABLE_CONFIG();
+        /* Make the pin input */
+        DDRD &= (0 << 1);
         /* Set the INT0 interrupt sense */
         SET_EXT_INT0_SENSE_CONFIG(interrupt_sense);
         /* Enable INT0 interrupt*/
@@ -48,6 +50,8 @@ Std_ReturnType inline ext_intx_init(uint8 intx_type, EXT_INTx_SENSE_t interrupt_
     {
         /* Disable INT1 interrupt */
         EXT_INT1_DISABLE_CONFIG();
+        /* Make the pin input */
+        DDRD &= (0 << 2);
         /* Set the INT1 interrupt sense */
         SET_EXT_INT1_SENSE_CONFIG(interrupt_sense);
         /* Enable INT1 interrupt*/
