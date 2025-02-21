@@ -5,8 +5,8 @@
  * Created: 21/2/2025 1:08:00 AM
  */
 #include "mcal_ext_interrupts.h"
-static volatile void (*EXT_INT0_INTERRUPT_HANDLER)() = NULL; /* Interrupt handler of INT0 */
-static volatile void (*EXT_INT1_INTERRUPT_HANDLER)() = NULL; /* Interrupt handler of INT1 */
+static void (*EXT_INT0_INTERRUPT_HANDLER)() = NULL; /* Interrupt handler of INT0 */
+static void (*EXT_INT1_INTERRUPT_HANDLER)() = NULL; /* Interrupt handler of INT1 */
 
 static Std_ReturnType inline set_intx_isr(uint8 intx_type ,void (*intx_isr)());
 
