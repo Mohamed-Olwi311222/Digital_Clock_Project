@@ -5,7 +5,6 @@
  *  Author: Mohamed olwi
  */ 
 #include "main.h"
-#include "MCAL/USART/mcal_usart.h"
 
 usart_t usart_debug = {
     .usart_baudrate = 9600,
@@ -41,6 +40,7 @@ char_lcd_4bit_t lcd_1 = {
     .lcd_data[3].pin = GPIO_PIN7,
     .lcd_data[3].direction = GPIO_DIRECTION_OUTPUT,
 };
+uint8 key = 0;
 
 /**
  * @brief Convert BCD to decimal
@@ -50,6 +50,15 @@ char_lcd_4bit_t lcd_1 = {
 uint8 bcdToDec(uint8 bcd)
 {
     return ((bcd >> 4) * 10) + (bcd & 0x0F);
+}
+/**
+ * @brief Convert decimal to BCD
+ * @param dec The decimal value (0-99)
+ * @return The BCD value
+ */
+uint8 decToBcd(uint8 dec)
+{
+    return ((dec / 10) << 4) | (dec % 10);
 }
 /**
  * @brief Print the time on the lcd
@@ -83,7 +92,6 @@ void print_date_on_lcd(const uint8 *const rtc_time)
     sint8 i = 3;
     uint8 x = 0;
 
-    
     lcd_4bit_send_char_data_pos(&lcd_1, 4, 11, '/');
     lcd_4bit_send_char_data_pos(&lcd_1, 4, 14, '/');
     for (; i < 6; i++)
@@ -132,6 +140,10 @@ Std_ReturnType ecu_init(void)
     sei();
     return (ret_val);
 }
+/**
+ * @brief Initialzie the rtc time
+ * @return E_OK if success otherwise E_NOT_OK
+ */
 Std_ReturnType rtc_init_time(void)
 {
     Std_ReturnType ret_val = E_OK;
@@ -140,34 +152,19 @@ Std_ReturnType rtc_init_time(void)
 
     /* Read the time and store in the rtc_time buffer */
     ret_val |= rtc_read_time_eeprom(RTC_EEPROM_ADDR, rtc_time, RTC_BUFFER_LEN);
-    /* Check if the current boot is the first boot */
-    for (i = 0; i < RTC_BUFFER_LEN; i++)
-    {
-        if (EEPROM_DEFAULT_ADDR_VAL == rtc_time[i])
-        {
-            rtc_first_boot = RTC_FIRST_BOOT_TRUE;
-            break;
-        }
-    }
-    /* If it is not the first boot of the System, set the stored value in the EEPROM of the RTC time */
-    if (RTC_FIRST_BOOT_FALSE == rtc_first_boot)
-    {
-        ret_val |= rtc_read_time_eeprom(RTC_EEPROM_ADDR, rtc_time, RTC_BUFFER_LEN);
-    }
-    else
-    {
-        /* if it is the first boot just set these predefined values */
-        rtc_time[RTC_SECONDS_IDX] = 0x50;
-        rtc_time[RTC_MINUTES_IDX] = 0x10;
-        rtc_time[RTC_HOURS_IDX] = 0x23;
-        rtc_time[RTC_DAYS_IDX] = 0x20;
-        rtc_time[RTC_MONTHS_IDX] = 0x02;
-        rtc_time[RTC_YEARS_IDX] = 0x25;
-    }
+
     ret_val |= rtc_set_time(rtc_time, RTC_BUFFER_LEN);
     /* Enable square output to print the time each second */
     rtc_enable_sqw_output();
     return (ret_val);
+}
+/**
+ * @brief print "Time: " and "Date: " identifiers
+ */
+inline void print_time_date_identifiers(void)
+{
+    lcd_4bit_send_string_pos(&lcd_1, 1, 0,(uint8 *) "Time: ");
+    lcd_4bit_send_string_pos(&lcd_1, 3, 0, (uint8 *) "Date: ");
 }
 /**
  * @brief Main function
@@ -176,18 +173,17 @@ Std_ReturnType rtc_init_time(void)
 int main(void)
 {
     Std_ReturnType ret_val = E_OK;
-    uint8 key = 0;
     uint8 i = 0;
 
     /* Initialize the ecu layer modules */
     ret_val = ecu_init();
-    /* Initialize the starting time */
-    ret_val |= rtc_init_time();
+    lcd_4bit_send_string_pos(&lcd_1, 1, 7, (uint8 *)"Welcome!!");
+    _delay_ms(2000);
+    ret_val |= handle_setup_mode();
     /* Print the date on the screen as it rarely changes */
     print_date_on_lcd(rtc_time);
 
-    lcd_4bit_send_string_pos(&lcd_1, 1, 0,(uint8 *) "Time: ");
-    lcd_4bit_send_string_pos(&lcd_1, 3, 0, (uint8 *) "Date: ");
+    print_time_date_identifiers();
 	while(1)
     {
         // keypad_read(&key);

@@ -26,7 +26,7 @@ ERM_MOTOR = $(ECU_DIR)/ERM_Motor/ecu_erm_motor.c
 #ECU modules
 ECU_MODULES = $(CHAR_LCD) $(RTC_DS1307) $(KEYPAD) $(ERM_MOTOR)
 # Source files (Add all C files from different directories)
-SRC = main.c $(MCAL_MODULES) $(ECU_MODULES)
+SRC = main.c setup_system.c $(MCAL_MODULES) $(ECU_MODULES)
 
 # Object files
 OBJ = $(SRC:.c=.o)
